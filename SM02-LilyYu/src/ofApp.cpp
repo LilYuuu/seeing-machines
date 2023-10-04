@@ -44,7 +44,9 @@ void ofApp::draw(){
         ofPixels& camPixels = cam.getPixels();
 //        camPixels = cam.getPixels();
         ofImage roiImg;
+//        roiImg.setFromPixels(cam.getPixels(), object.width, object.height, OF_IMAGE_COLOR);
         roiImg.setFromPixels(cam.getPixels());
+        roiImg.crop(object.x, object.y, object.width, object.height);
         if (useGaussian) {
             GaussianBlur(roiImg, radius);
         } else {
@@ -53,8 +55,8 @@ void ofApp::draw(){
         roiImg.update();
         ofPushMatrix();
         roiImg.setAnchorPoint(roiImg.getWidth()/2, roiImg.getHeight()/2);
-//        ofTranslate(object.x + object.width/2., object.y + object.height/2.);
-        ofTranslate(object.x, object.y);
+        ofTranslate(object.x + object.width/2., object.y + object.height/2.);
+//        ofTranslate(object.x, object.y);
         roiImg.draw(0, 0);
         ofPopMatrix();
     }
